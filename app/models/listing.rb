@@ -1,6 +1,11 @@
 class Listing < ActiveRecord::Base
+	if Rails.env.development?
 has_attached_file :image, :styles => { :medium => "200x>", :thumb => "100x100>" }, :default_url => "default.jpg",
-:storage => :dropbox,
-:dropbox_credentials => Rails.root.join("config/dropbox.yml")
+	else
+		has_attached_file :image, :styles => { :medium => "200x>", :thumb => "100x100>" }, :default_url => "default.jpg",
+		:storage => :dropbox,
+		:dropbox_credentials => Rails.root.join("config/dropbox.yml"), #this is for dropbox.
+		:path =>":style/id_filename" #sort by medium thumb or original size - then will name it to something.jpb
+	end
 
 end

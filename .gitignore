@@ -17,3 +17,6 @@
 .DS_Store
 # Ignore application configuration
 /config/application.yml
+
+#ignore files uploaded to local host. 
+/public/system 
