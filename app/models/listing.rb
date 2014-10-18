@@ -8,4 +8,8 @@ has_attached_file :image, :styles => { :medium => "200x>", :thumb => "100x100>" 
 		:path =>":style/id_filename" #sort by medium thumb or original size - then will name it to something.jpb
 	end
 
+	validates :name, :description, :price, presence: true
+	validates :price, numericality: {greater_than: 0}
+	validates_attachment_presence :image
+
 end
