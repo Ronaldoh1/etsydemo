@@ -13,5 +13,6 @@ has_attached_file :image, :styles => { :medium => "200x>", :thumb => "100x100>" 
 	validates_attachment_presence :image
 
 	belongs_to :user
+	has_many :orders
 
 end
