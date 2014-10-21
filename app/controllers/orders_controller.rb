@@ -30,6 +30,21 @@ class OrdersController < ApplicationController
     @order.buyer_id = current_user.id
     @order.seller_id = @seller.id
 
+      Stripe.api_key = ENV["STRIPE_API_KEY"]
+   
+      # get the credit card details submitted by the form or app
+      token = params[:stripeToken]
+
+      # Create the charge on Stripe's servers - this will charge the user's card
+      begin
+        charge = Stripe::Charge.create(
+          :amount => (@listing.price * 100).floor, # amount in cents, again
+          :currency => "usd",
+          :card => token
+        )
+      rescue Stripe::CardError => e
+        # The card has been declined
+      end
 
     respond_to do |format|
       if @order.save
