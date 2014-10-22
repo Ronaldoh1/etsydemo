@@ -31,11 +31,8 @@ class OrdersController < ApplicationController
     @order.seller_id = @seller.id
 
       Stripe.api_key = ENV["STRIPE_API_KEY"]
-   
-      # get the credit card details submitted by the form or app
       token = params[:stripeToken]
-
-      # Create the charge on Stripe's servers - this will charge the user's card
+      
       begin
         charge = Stripe::Charge.create(
           :amount => (@listing.price * 100).floor, # amount in cents, again
@@ -49,7 +46,7 @@ class OrdersController < ApplicationController
       end
 
       transfer = Stripe::Transfer.create(
-        :amount =>(@listing.price*95).floor,
+        :amount =>(@listing.price * 95).floor,
         :currency => "usd",
         :recipient => @seller.recipient
 

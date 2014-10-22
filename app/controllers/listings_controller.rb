@@ -36,8 +36,6 @@ class ListingsController < ApplicationController
 
       if current_user.recipient.blank?
           Stripe.api_key = ENV["STRIPE_API_KEY"]
-       
-          # get the credit card details submitted by the form or app
           token = params[:stripeToken]
 
 
